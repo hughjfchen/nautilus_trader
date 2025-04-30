@@ -2,7 +2,7 @@
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
   };
 
   outputs = { self, nixpkgs, flake-utils
@@ -28,6 +28,14 @@
 
     devShell =  pkgs.mkShell {
       buildInputs = with pkgs; [
+        bashInteractive
+        pkg-config
+        openssl
+        clang
+        rustup
+        rustc
+        cargo
+        uv
         python-env
         our-poetry
       ] ++ lib.optionals (stdenv.isDarwin) [
@@ -37,6 +45,7 @@
       ]
       ;
       shellHook = ''
+        poetry shell
       '';
     };
   }
